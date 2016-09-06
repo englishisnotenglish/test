@@ -1,0 +1,34 @@
+{
+  "code":0,
+  "data":[
+    {
+      "area_id":2,
+      "article_id":1,
+      "article_type":1,
+      "article_title":"2106-08-31新品",
+      "article_image":"/images/123.png"
+    },
+    {
+      "area_id":2,
+      "article_id":2,
+      "article_type":2,
+      "article_title":"2106-08-31新品",
+      "article_image":"/images/123.png"
+    },
+    {
+      "area_id":2,
+      "article_id":3,
+      "article_type":3,
+      "article_title":"2106-08-31新品",
+      "article_image":"/images/123.png"
+    },
+    {
+      "area_id":2,
+      "article_id":4,
+      "article_type":4,
+      "article_title":"2106-08-31新品",
+      "article_image":"/images/123.png"
+    }
+  ],
+  "message":"OK"
+}
