@@ -60,7 +60,6 @@ class ReceiveUserList extends React.Component {
 
     //对当前页面的设置;
     changePage(n) {
-        console.log(n);
         let param = this.state.defaultParam,
             newParam = Object.assign(param, n);
         this.setState({defaultParam: newParam}, () => {

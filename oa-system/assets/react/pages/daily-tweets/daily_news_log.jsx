@@ -10,6 +10,7 @@ class DailyNewsLog extends React.Component {
             data: null,   //查询某月的推文发送日志;
             year: H.Date.getFullYear(),  //本年;
             month: H.Date.getMonth(), //本月;
+            day: H.Date.getDate(), //当天;
             AreaData: null,  //当前地区;
             dateArr: []  //本月对应数组;
         };
@@ -18,7 +19,9 @@ class DailyNewsLog extends React.Component {
     }
 
     componentDidMount() {
-        this.getData();
+        this.setState({AreaData: this.props.currentArea}, () =>{
+            this.getData();
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -33,13 +36,13 @@ class DailyNewsLog extends React.Component {
 
     getData() {
         let param = {
-            area_id: this.state.AreaData,
+            area_id: this.state.AreaData.area_id,
             date: this.state.year + '-' + this.state.month
         };
         H.server.operate_dailyNews_log_list(param, (res) => {
             if(res.code == 0) {
                 this.setState({data: res.data}, () => {
-                    H.Calendar.init(this.state.year + '/' + this.state.month + '/01 00:00:00');
+                    H.Calendar.init(this.state.year + '/' + this.state.month + '/' + this.state.day +' 00:00:00');
                     $('#calendar').html(H.Calendar.getCalendar(Object.keys(res.data)));
                     this.showInfo();
                 });
@@ -61,7 +64,7 @@ class DailyNewsLog extends React.Component {
                 let num = $(this).data('num'),
                     data = _this.state.data;
                 $(this).find('.tbg_num').html('送达数量:' + data[num].delivery_number);
-                $(this).find('.tbg_num').slideDown();
+                $(this).find('.tbg_num').slideDown('slow');
             }, function(){
                 $(this).find('.tbg_num').html('');
                 $(this).find('.tbg_num').slideUp();

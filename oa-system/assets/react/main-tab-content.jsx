@@ -18,6 +18,9 @@ import DailyTweets from './pages/daily-tweets/tweets_ctrl.jsx';
 //系统设置-每日推文设置;
 import  SetDailyTweets from './pages/set-daily-tweets/set_daily_tweets.jsx';
 
+//运营管理-每日推文复写版
+import TweetsCtrl from './pages/daily-tweets-copyV/daily_tweets_ctrl.jsx';
+
 //import DepositMain from  './pages/deposit/home.jsx';
 //import WithDrawMain from  './pages/withdraw/home.jsx';
 //import MoneyCheck from  './pages/moneycheck/home.jsx';
@@ -55,8 +58,11 @@ class TabContentControl extends React.Component {
                         }else if(url.indexOf('set-daily-tweets') !=-1 ){
                             panelContent = <SetDailyTweets />;
                         } else if (url.indexOf('daily-tweets') != -1 ) {
+                            //console.log('in');
                             //panelContent = <MessControl currentTabData={el}/>;
                             panelContent = <DailyTweets currentTabData={el} userNavigate={this.props.userNavigate.execute_privilege} />;
+                        }else if (url.indexOf('daily-copyV') != -1 ) {
+                            panelContent = <TweetsCtrl />;
                         }
                         return (
                             <div key={index} className={isActive} id={tid}>

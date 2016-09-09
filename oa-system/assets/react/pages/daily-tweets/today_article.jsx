@@ -63,6 +63,12 @@ class TodayArticle extends React.Component {
     changeArticleType(index, e) {
         let data = this.state.todayArticleList,
             val = e.target.value;
+        for(let i in data) {
+            if(data[i].article_type == val){
+                H.Modal('每一条的类型不能重复');
+                return;
+            }
+        }
         data[index].article_type = val;
         this.setState({todayArticleList: data});
     }
@@ -102,13 +108,19 @@ class TodayArticle extends React.Component {
     //添加推文;
     addArticle() {
         let data = this.state.todayArticleList,
-            newArticle = {
-                'area_id': this.props.currentArea.area_id,
-                'article_id': 0,
-                'article_type': 2,
-                'article_title': '',
-                'article_image': '/images/default-article.png'
-            };
+            type = this.state.todayArticleType;
+        if(data.length == type.length) {
+            H.Modal('最多'+this.state.todayArticleType.length+'条，每一条的类型不能重复');
+            return;
+        }
+
+        let newArticle = {
+            'area_id': this.props.currentArea.area_id,
+            'article_id': 0,
+            'article_type': 0,
+            'article_title': '',
+            'article_image': 'Public/Uploads/oa-article/default-article.png'
+        };
         data.push(newArticle);
         this.setState({todayArticleList: data});
     }
@@ -148,6 +160,7 @@ class TodayArticle extends React.Component {
                 ['content-length-range', 0, 104857600]
             ]
         };
+
         var policyBase64 = Base64.encode(JSON.stringify(POLICY_JSON));
 
         H.server.other_oss_signature({signature_data: policyBase64}, (res) => {
@@ -208,14 +221,13 @@ class TodayArticle extends React.Component {
                     <div className="tweets-edit-wrap">
                         <div className="tweets-edit-ul-wrap">
                             <ul className="tweets-edit-ul">
-
                                 {
                                     this.state.todayArticleList.map((data, index) => {
                                         if(index == 0) {
                                             return (
                                                 <li key={index}>
                                                     <div className="first-tweets-img-wrap">
-                                                        <img className="first-tweets-img" src={data.article_image} width="100%" height="162" />
+                                                        <img className="first-tweets-img" src={'http://img.idongpin.com/' + data.article_image} width="100%" height="162" />
                                                         <input className="up-img" type="file" onChange={this.fileChange.bind(this, index)}/>
                                                     </div>
                                                     <div className="first-input-wrap">
@@ -223,6 +235,7 @@ class TodayArticle extends React.Component {
                                                     </div>
                                                     <div className="article-type">
                                                         <select className="form-control" value={data.article_type} onChange={this.changeArticleType.bind(this, index)}>
+                                                            <option key='0' value='0'>请选择</option>
                                                             {
                                                                 this.state.todayArticleType.map((val, index1) => {
                                                                     return (<option key={data.article_id + '_' + index1} value={val.id}>{val.name}</option>);
@@ -240,11 +253,12 @@ class TodayArticle extends React.Component {
                                                         <textarea className="tweets-input" rows="2" value={data.article_title} onChange={this.changeArticleTitle.bind(this, index)}></textarea>
                                                     </div>
                                                     <div className="tweets-img-wrap">
-                                                        <img className="tweets-img" src={data.article_image} width="55px" height="55px" />
+                                                        <img className="tweets-img" src={'http://img.idongpin.com/' + data.article_image} width="55px" height="55px" />
                                                         <input className="up-img" type="file" onChange={this.fileChange.bind(this, index)}/>
                                                     </div>
                                                     <div className="article-type">
                                                         <select className="form-control" value={data.article_type} onChange={this.changeArticleType.bind(this, index)}>
+                                                            <option key='0' value='0'>请选择</option>
                                                             {
                                                                 this.state.todayArticleType.map((val, index1) => {
                                                                     return (<option key={data.article_id + '_' + index1} value={val.id}>{val.name}</option>);
@@ -265,12 +279,7 @@ class TodayArticle extends React.Component {
                         <btn className="tweets-add-btn" onClick={this.addArticle.bind(this)}>添加</btn>
                     </div>
                 </div>
-                <div className="daily-tweets-goods">
-                    <h1 className="tweets-edit-title">商品操作区</h1>
-                    {
-                        this.state.todayArticleType.length > 0 ? <GoodsInfo todayArticleType={this.state.todayArticleType} AreaData={this.props.currentArea} /> : ''
-                    }
-                </div>
+
             </div>
         );
     }

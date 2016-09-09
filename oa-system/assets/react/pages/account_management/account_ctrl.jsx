@@ -388,6 +388,9 @@ class AccountManagementCtrl extends React.Component {
                             confirmCallback={() => {
                                 this.setState({modalState: 0});
                             }}
+                            cancelCallback={() => {
+                                this.setState({modalState: 0});
+                            }}
                         >
                             {this.userPrivilege()}
                         </Modal>

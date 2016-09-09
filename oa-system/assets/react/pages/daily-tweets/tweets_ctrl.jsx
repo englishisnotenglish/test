@@ -5,7 +5,6 @@ import DailyNewsLog from './daily_news_log.jsx';
 import TodayArticle from './today_article.jsx';
 
 class DepartmentManagementCtrl extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -15,8 +14,8 @@ class DepartmentManagementCtrl extends React.Component {
                 infoPanelIsShow: false,
                 infoPanelTitle: ''
             },
-            pageStatus: 1,   //当前页面，1：明日推文，2：可推用户名单，3：推文日志;
-            areaData: [],     //区域的状态
+            pageStatus: 1,   //当前页面，1：今日推文，2：可推用户名单，3：推文日志;
+            areaData: [],     //区域的数据;
             currentArea: null   //当前区域;
         };
         this.hideInfoPanel = this.hideInfoPanel.bind(this);
@@ -27,6 +26,7 @@ class DepartmentManagementCtrl extends React.Component {
     }
 
     componentDidMount() {
+
         //当前用户的所有权限获取;
         let tabData = this.props.currentTabData,
             userNavigate = this.props.userNavigate;
@@ -35,6 +35,7 @@ class DepartmentManagementCtrl extends React.Component {
                 this.setState({privilege: this.props.userNavigate[tabData.parentId][tabData.id]});
             }
         }
+
         H.server.other_customArea_list({}, (res) => {
             if(res.code == 0) {
                 this.setState({
@@ -67,13 +68,7 @@ class DepartmentManagementCtrl extends React.Component {
 
     //刷新;
     refresh() {
-        this.getDataList();
-        this.setState({
-            infoPanel: {    //附体部分状态及标题初始化;
-                infoPanelIsShow: false,
-                infoPanelTitle: ''
-            }
-        });
+        this.setPageStatus(1);
     }
 
     //判断是否有这个功能;
@@ -89,7 +84,10 @@ class DepartmentManagementCtrl extends React.Component {
 
     //设置页面类型,如明日推文，可推用户名单，推文日志;
     setPageStatus(status) {
-        this.setState({pageStatus: status});
+        this.setState({
+            pageStatus: status,
+            currentArea: this.state.areaData[0]
+        });
     }
 
     //判断应该显示哪个页面;
