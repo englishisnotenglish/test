@@ -1,55 +1,20 @@
 {
-  "code":0,
-  "data":{
-    "page":1,
-    "total":100,
-    "goods_info":[
+  "code": 0,
+  "data": {
+    "page": 1,
+    "total": 1,
+    "goods_info": [
       {
-        "id":1,
-        "goods_id":2,
-        "goods_name":"商品名称",
-        "yesterday_sales_num":5,
-        "yesterday_price":55.50,
-        "sell_shop_name":"供应商",
-        "shield_status":1
-      },
-      {
-        "id":2,
-        "goods_id":3,
-        "goods_name":"商品名称",
-        "yesterday_sales_num":5,
-        "yesterday_price":55.50,
-        "sell_shop_name":"供应商",
-        "shield_status":1
-      },
-      {
-        "id":3,
-        "goods_id":4,
-        "goods_name":"商品名称",
-        "yesterday_sales_num":5,
-        "yesterday_price":55.50,
-        "sell_shop_name":"供应商",
-        "shield_status":1
-      },
-      {
-        "id":4,
-        "goods_id":5,
-        "goods_name":"商品名称",
-        "yesterday_sales_num":5,
-        "yesterday_price":55.50,
-        "sell_shop_name":"供应商",
-        "shield_status":1
-      },
-      {
-        "id":5,
-        "goods_id":6,
-        "goods_name":"商品名称",
-        "yesterday_sales_num":5,
-        "yesterday_price":55.50,
-        "sell_shop_name":"供应商",
-        "shield_status":1
+        "id": 0,
+        "goods_id": 1752,
+        "goods_name": "的更好",
+        "yesterday_sales_num": 0,
+        "goods_price": "80.00",
+        "yesterday_price": "80.00",
+        "sell_shop_name": "测试嘻嘻",
+        "shield_status": 1
       }
     ]
   },
-  "message":"OK"
+  "message": "OK"
 }

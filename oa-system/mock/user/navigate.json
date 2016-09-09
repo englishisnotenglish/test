@@ -57,6 +57,12 @@
             "privilege_tag": "operate_daily_news",
             "url": "daily-tweets",
             "id": 22
+          },
+          {
+            "name": "每日推送模仿版本",
+            "privilege_tag": "operate_daily_news_copy",
+            "url": "daily-copyV",
+            "id": 29
           }
         ]
       }
