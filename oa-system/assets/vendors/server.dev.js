@@ -293,4 +293,56 @@ var send = function (type, api, parameters, success, async) {
     server.operate_dailyNews_manage_edit = function (data, callback) {
         return send('post', contextPath + '/operate/daily-news/manage/edit', data, callback);
     };
+
+    /*
+     * 访问日志
+     * */
+    //当前页面所有访问统计
+    server.statistic_page_all = function (data, callback) {
+        return send('get', contextPath + '/statistic/page/all', data, callback);
+    };
+
+    //店铺访问统计数据展示
+    server.statistic_page_detail = function (data, callback) {
+        return send('get', contextPath + '/statistic/page/detail', data, callback);
+    };
+
+    //商品当前结果统计
+    server.statistic_goods_all = function (data, callback) {
+        return send('get', contextPath + '/statistic/goods/all', data, callback);
+    };
+
+    //商品页面详细数据
+    server.statistic_goods_detail = function (data, callback) {
+        return send('get', contextPath + '/statistic/goods/detail', data, callback);
+    };
+
+    //指定商品的详细访问记录
+    server.statistic_goodsSpecific_detail = function (data, callback) {
+        return send('get', contextPath + '/statistic/goods-specific/detail', data, callback);
+    };
+
+
+    /*
+     * 推荐商品
+     * */
+    //添加推荐榜商品;
+    server.operate_dailyNews_goods_recommend = function (data, callback) {
+        return send('post', contextPath + '/operate/daily-news/goods/recommend', data, callback);
+    };
+
+    //移除单个推荐榜商品;
+    server.operate_dailyNews_recommend_goods_remove = function (data, callback) {
+        return send('post', contextPath + '/operate/daily-news/recommend/goods/remove', data, callback);
+    };
+
+    //移除全部推荐榜商品;
+    server.operate_dailyNews_recommend_goods_removeAll = function (data, callback) {
+        return send('post', contextPath + '/operate/daily-news/recommend/goods/remove-all', data, callback);
+    };
+
+    //推荐榜商品排序;
+    server.operate_dailyNews_recommend_goods_sort = function (data, callback) {
+        return send('post', contextPath + '/operate/daily-news/recommend/goods/sort', data, callback);
+    };
 })();

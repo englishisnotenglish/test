@@ -293,4 +293,28 @@ var send = function (type, api, parameters, success, async) {
     server.operate_dailyNews_manage_edit = function (data, callback) {
         return send('post', contextPath + '/operate/daily-news/manage/edit', data, callback);
     };
+
+    /*
+     * 推荐商品
+     * */
+
+    //添加推荐榜商品;
+    server.operate_dailyNews_goods_recommend = function (data, callback) {
+        return send('post', contextPath + '/operate/daily-news/goods/recommend', data, callback);
+    };
+
+    //移除单个推荐榜商品;
+    server.operate_dailyNews_recommend_goods_remove = function (data, callback) {
+        return send('post', contextPath + '/operate/daily-news/recommend/goods/remove', data, callback);
+    };
+
+    //移除全部推荐榜商品;
+    server.operate_dailyNews_recommend_goods_removeAll = function (data, callback) {
+        return send('post', contextPath + '/operate/daily-news/recommend/goods/remove-all', data, callback);
+    };
+
+    //推荐榜商品排序;
+    server.operate_dailyNews_recommend_goods_sort = function (data, callback) {
+        return send('post', contextPath + '/operate/daily-news/recommend/goods/sort', data, callback);
+    };
 })();

@@ -12,8 +12,11 @@ class DailyNewsLog extends React.Component{
 
     initCalendar(){
         let date = new Date();
-        H.Calendar.init(date.getYear() + '/' + date.getMonth() + '/' + date.getDay() +' 00:00:00');
-        $('#calendar').html(H.Calendar.getCalendar(this.props.dates));
+        H.Calendar.init(date.getTime());
+    }
+
+    getDate(e){
+        console.log($(e.target).text());
     }
 
     createLogPage(){
@@ -23,7 +26,7 @@ class DailyNewsLog extends React.Component{
     render(){
 
         return(
-            <div id="calendar">
+            <div id="calendar" onClick={this.getDate.bind(this)}>
                 {this.initCalendar()}
             </div>
         );

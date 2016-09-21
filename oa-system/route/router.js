@@ -252,14 +252,75 @@ router.get('/mock/operate/daily-news/log/list',function(req, res){
 
 //每日推文设置get;
 router.get('/mock/operate/daily-news/manage/list',function(req, res){
-    console.log('推文商品列表');
+    console.log('每日推文设置get');
     res.sendFile('/operate/daily-news/manage/list.json', getOptions());
 });
 
 //每日推文设置post;
 router.post('/mock/operate/daily-news/manage/edit',function(req, res){
-    console.log('推文商品列表');
+    console.log('每日推文设置post');
     res.sendFile('/operate/daily-news/manage/edit.json', getOptions());
+});
+
+/*
+ * 访问日志
+ * */
+//当前页面所有访问统计get
+router.get('/mock/statistic/page/all',function(req, res){
+    console.log('当前页面所有访问统计get');
+    res.sendFile('/statistic/page/all.json', getOptions());
+});
+
+//店铺访问统计数据展示get
+router.get('/mock/statistic/page/detail',function(req, res){
+    console.log('店铺访问统计数据展示get');
+    res.sendFile('/statistic/page/detail.json', getOptions());
+});
+
+//商品当前结果统计get
+router.get('/mock/statistic/goods/all',function(req, res){
+    console.log('商品当前结果统计get');
+    res.sendFile('/statistic/goods/all.json', getOptions());
+});
+
+//商品访问统计数据展示get
+router.get('/mock/statistic/goods/detail',function(req, res){
+    console.log('商品访问统计数据展示get');
+    res.sendFile('/statistic/goods/detail.json', getOptions());
+});
+
+//指定商品访问统计数据展示get
+router.get('/mock/statistic/goods-specific/detail',function(req, res){
+    console.log('指定商品访问统计数据展示get');
+    res.sendFile('/statistic/goods-specific/detail.json', getOptions());
+});
+
+/*
+ * 店铺
+ * */
+
+//添加推荐榜商品;
+router.post('/mock/operate/daily-news/goods/recommend',function(req, res){
+    console.log('添加推荐榜商品');
+    res.sendFile('/operate/daily-news/goods/recommend.json', getOptions());
+});
+
+//移除单个推荐榜商品;
+router.post('/mock/operate/daily-news/recommend/goods/remove',function(req, res){
+    console.log('移除单个推荐榜商品');
+    res.sendFile('/operate/daily-news/recommend/goods/remove.json', getOptions());
+});
+
+//移除全部推荐榜商品;
+router.post('/mock/operate/daily-news/recommend/goods/remove-all',function(req, res){
+    console.log('移除单个推荐榜商品');
+    res.sendFile('/operate/daily-news/recommend/goods/remove-all.json', getOptions());
+});
+
+//推荐榜商品排序;
+router.post('/mock/operate/daily-news/recommend/goods/sort',function(req, res){
+    console.log('推荐榜商品排序');
+    res.sendFile('/operate/daily-news/recommend/goods/sort.json', getOptions());
 });
 
 module.exports = router;

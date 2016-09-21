@@ -47,7 +47,7 @@ class TimeSearch extends React.Component {
     render() {
         return (
             <div className="time-search-w" style={{display: "inline-block"}}>
-                <ChooseTime changeHandler={this.changeHandlerStart} num="7" id={(this.props.prefix?this.props.prefix:"")+"startTime"} />—
+                <ChooseTime changeHandler={this.changeHandlerStart} num="7" id={(this.props.prefix?this.props.prefix:"")+"startTime"} /><span className="separated">—</span>
                 <ChooseTime changeHandler={this.changeHandlerEnd} num="0" id={(this.props.prefix?this.props.prefix:"")+"endTime"} />
                 <Btn name="筛选" btnEvent={this.searchSub} />
             </div>

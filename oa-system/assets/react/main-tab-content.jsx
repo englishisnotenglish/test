@@ -4,13 +4,13 @@ import React from  'react';
 import Home from  './pages/home/main.jsx';
 
 //系统设置-账户管理;
-import AccountManagement from './pages/account_management/account_ctrl.jsx';
+import AccountManagement from './pages/account-management/account_ctrl.jsx';
 
 //系统设置-部门管理;
-import DepartmentManagement from './pages/department_management/department_ctrl.jsx';
+import DepartmentManagement from './pages/department-management/department_ctrl.jsx';
 
 //商贸系统-商贸公司;
-import TradeCompany from './pages/trade_company/trade_ctrl.jsx';
+import TradeCompany from './pages/trade-company/trade_ctrl.jsx';
 
 //运营管理-每日推文;
 import DailyTweets from './pages/daily-tweets/tweets_ctrl.jsx';
@@ -18,15 +18,15 @@ import DailyTweets from './pages/daily-tweets/tweets_ctrl.jsx';
 //系统设置-每日推文设置;
 import  SetDailyTweets from './pages/set-daily-tweets/set_daily_tweets.jsx';
 
-//运营管理-每日推文复写版
-import TweetsCtrl from './pages/daily-tweets-copyV/daily_tweets_ctrl.jsx';
+//运营管理-访问日志
+import AccessLog from './pages/access-log/access_log.jsx';
 
 //import DepositMain from  './pages/deposit/home.jsx';
 //import WithDrawMain from  './pages/withdraw/home.jsx';
 //import MoneyCheck from  './pages/moneycheck/home.jsx';
 
 //权限管理(只有root用户还会有);
-import PrivilegeManagement from  './pages/privilege_management/privilege_ctrl.jsx';
+import PrivilegeManagement from  './pages/privilege-management/privilege_ctrl.jsx';
 //import Refund from  './pages/refund/home.jsx';
 
 class TabContentControl extends React.Component {
@@ -55,14 +55,13 @@ class TabContentControl extends React.Component {
                         } else if (url.indexOf('department-management') != -1 ) {
                             //系统设置-部门管理
                             panelContent = <DepartmentManagement currentTabData={el} userNavigate={this.props.userNavigate.execute_privilege} />;
-                        }else if(url.indexOf('set-daily-tweets') !=-1 ){
+                        } else if(url.indexOf('set-daily-tweets') !=-1 ){
                             panelContent = <SetDailyTweets />;
                         } else if (url.indexOf('daily-tweets') != -1 ) {
-                            //console.log('in');
                             //panelContent = <MessControl currentTabData={el}/>;
                             panelContent = <DailyTweets currentTabData={el} userNavigate={this.props.userNavigate.execute_privilege} />;
-                        }else if (url.indexOf('daily-copyV') != -1 ) {
-                            panelContent = <TweetsCtrl />;
+                        } else if(url.indexOf('access-log') != -1 ){
+                            panelContent = <AccessLog />;
                         }
                         return (
                             <div key={index} className={isActive} id={tid}>

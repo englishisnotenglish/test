@@ -64,7 +64,7 @@ class DailyNewsLog extends React.Component {
                 let num = $(this).data('num'),
                     data = _this.state.data;
                 $(this).find('.tbg_num').html('送达数量:' + data[num].delivery_number);
-                $(this).find('.tbg_num').slideDown('slow');
+                $(this).find('.tbg_num').slideDown();
             }, function(){
                 $(this).find('.tbg_num').html('');
                 $(this).find('.tbg_num').slideUp();

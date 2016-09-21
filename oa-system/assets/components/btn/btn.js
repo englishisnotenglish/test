@@ -7,7 +7,7 @@ import React from 'react';
 /*按钮组件;*/
 class Btn extends React.Component {
 
-    reader() {
+    render() {
         return (
             <button className={"btn btn-default " + this.props.otherClass} onClick={this.props.btnEvent} >{this.props.name}</button>
         )

@@ -56,6 +56,7 @@ class TodayArticle extends React.Component {
             }else {
                 H.Modal(res.message);
             }
+            H.editSave = false;
         });
     }
 
@@ -92,6 +93,14 @@ class TodayArticle extends React.Component {
 
     //删除推文;
     tweetsDel(articleId, index) {
+        if(H.editSave) return;
+        H.editSave = true;
+        if(articleId == 0) {
+            let data = this.state.todayArticleList;
+            data.splice(index, 1);
+            this.setState({todayArticleList: data});
+            return;
+        }
         H.server.operate_todayArticle_delete({article_id: articleId}, (res) => {
             if(res.code == 0) {
                 let data = this.state.todayArticleList;
@@ -102,6 +111,7 @@ class TodayArticle extends React.Component {
             }else {
                 H.Modal(res.message);
             }
+            H.editSave = false;
         });
     }
 
@@ -115,28 +125,33 @@ class TodayArticle extends React.Component {
         }
 
         let newArticle = {
-            'area_id': this.props.currentArea.area_id,
-            'article_id': 0,
-            'article_type': 0,
-            'article_title': '',
-            'article_image': 'Public/Uploads/oa-article/default-article.png'
-        };
+                'area_id': this.props.currentArea.area_id,
+                'article_id': 0,
+                'article_type': 0,
+                'article_title': '',
+                'article_image': 'Public/Uploads/oa-article/default-article.png'
+            };
         data.push(newArticle);
         this.setState({todayArticleList: data});
     }
 
     //保存推文;
     saveArticle() {
+        if(H.editSave) return;
+        H.editSave = true;
         let param = {
             data: JSON.stringify(this.state.todayArticleList)
         };
         H.server.operate_todayArticle_edit(param, (res) => {
             if(res.code == 0) {
                 H.Modal('保存成功');
+                this.getTodayArticle();
             }else if(res.code == 10106) {
                 H.overdue();
+                H.editSave = false;
             }else {
                 H.Modal(res.message);
+                H.editSave = false;
             }
         });
     }
@@ -160,7 +175,6 @@ class TodayArticle extends React.Component {
                 ['content-length-range', 0, 104857600]
             ]
         };
-
         var policyBase64 = Base64.encode(JSON.stringify(POLICY_JSON));
 
         H.server.other_oss_signature({signature_data: policyBase64}, (res) => {
@@ -221,6 +235,7 @@ class TodayArticle extends React.Component {
                     <div className="tweets-edit-wrap">
                         <div className="tweets-edit-ul-wrap">
                             <ul className="tweets-edit-ul">
+
                                 {
                                     this.state.todayArticleList.map((data, index) => {
                                         if(index == 0) {
@@ -279,7 +294,12 @@ class TodayArticle extends React.Component {
                         <btn className="tweets-add-btn" onClick={this.addArticle.bind(this)}>添加</btn>
                     </div>
                 </div>
-
+                <div className="daily-tweets-goods">
+                    <h1 className="tweets-edit-title">商品操作区</h1>
+                    {
+                        this.state.todayArticleType.length > 0 ? <GoodsInfo todayArticleType={this.state.todayArticleType} AreaData={this.props.currentArea} /> : ''
+                    }
+                </div>
             </div>
         );
     }

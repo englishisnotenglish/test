@@ -92,7 +92,13 @@ class GoodsInfo extends React.Component {
 
     //切换推文类型查询对应列表;
     changeArticleType(data) {
-        this.setState({articleType: data}, () => {
+        this.setState({
+            articleType: data,
+            defaultParam: {
+                page: 1,
+                size: 30
+            }
+        }, () => {
             this.getDataList();
         });
     }
@@ -126,7 +132,172 @@ class GoodsInfo extends React.Component {
         });
     }
 
+    //添加推荐商品;
+    addRecommended() {
+        let M = H.Modal({
+            title: '新增推荐',
+            content: '<p>商品ID：<input id="recommendedGid" type="text"></p>',
+            cancel: true,
+            okText: '保存',
+            autoClose: false,
+            cancelText: '取消',
+            okCallback: () => {
+                let param = {goods_id: $('#recommendedGid').val()};
+                if(param.goods_id == '' || !param.goods_id) {
+                    $('#recommendedGid')[0].focus();
+                    return;
+                }
+                M.destroy();
+                H.server.operate_dailyNews_goods_recommend(param, (res) => {
+                    if(res.code == 0) {
+                        H.Modal('成功添加');
+                        this.getDataList();
+                    }else if(res.code == 10106) {
+                        H.overdue();
+                    }else {
+                        H.Modal(res.message);
+                    }
+                });
+            },
+            cancelCallback: () => {
+                M.destroy();
+            }
+        });
+    }
+
+    //清空推荐列表;
+    cleanRecommended() {
+        H.Modal({
+            title: '清空推荐',
+            content: '<p>确认全部清空吗？</p>',
+            cancel: true,
+            okText: '确认',
+            okCallback: () => {
+                H.server.operate_dailyNews_recommend_goods_removeAll({}, (res) => {
+                    if(res.code == 0) {
+                        H.Modal('成功清除');
+                        this.setState({
+                            defaultParam: {
+                                page: 1,
+                                size: 30
+                            }
+                        }, () => {
+                            this.getDataList();
+                        });
+                    }else if(res.code == 10106) {
+                        H.overdue();
+                    }else {
+                        H.Modal(res.message);
+                    }
+                });
+            }
+        });
+
+    }
+
+    //移出推荐商品;
+    removeRecommended(id, gid) {
+        let param = {
+            id: id
+        };
+        H.Modal({
+            title: '移除推荐商品',
+            height: '229',
+            content: '<p>当前推荐ID：'+id+'</p><p>商品ID：'+gid+'</p><p>移出后，随时可以重新推荐</p>',
+            ok: true,
+            okText: '确认',
+            okCallback: () => {
+                H.server.operate_dailyNews_recommend_goods_remove(param, (res) => {
+                    if(res.code == 0) {
+                        H.Modal('成功移出');
+                        this.getDataList();
+                    }else if(res.code == 10106) {
+                        H.overdue();
+                    }else {
+                        H.Modal(res.message);
+                    }
+                });
+            }
+        });
+    }
+
+    //推荐商品排序
+    sortingRecommended(id, gid) {
+        let M = H.Modal({
+            title: '排序',
+            height: '285',
+            content: '<p>当前推荐ID：'+id+'</p><p>商品ID：'+gid+'</p><p>推荐ID：<input id="nextId" type="text"></p><p style="color:#888888;">排在谁上面就填谁的推荐ID，不能和当前推荐ID相同</p>',
+            cancel: true,
+            autoClose: false,
+            okText: '保存',
+            okCallback: () => {
+                let param = {
+                    current_id: id,
+                    next_id: $('#nextId').val()
+                };
+                if(param.next_id == '' || !param.next_id || param.current_id == param.next_id) {
+                    $('#nextId')[0].focus();
+                    return;
+                }
+                M.destroy();
+                H.server.operate_dailyNews_recommend_goods_sort(param, (res) => {
+                    if(res.code == 0) {
+                        H.Modal('成功排序');
+                        this.getDataList();
+                    }else if(res.code == 10106) {
+                        H.overdue();
+                    }else {
+                        H.Modal(res.message);
+                    }
+                });
+            },
+            cancelCallback: () => {
+                M.destroy();
+            }
+        });
+    }
+
     render() {
+        let tHead = (
+            <tr>
+                <th>序号</th>
+                <th>商品ID</th>
+                <th>品名</th>
+                <th>昨日销量</th>
+                <th>当前价格</th>
+                <th>供应商</th>
+                <th>操作</th>
+            </tr>
+        );
+        if(this.state.articleType) {
+            if(this.state.articleType.id == 4) {
+                tHead = (
+                    <tr>
+                        <th>序号</th>
+                        <th>商品ID</th>
+                        <th>品名</th>
+                        <th>昨日销量</th>
+                        <th>当前价格</th>
+                        <th>昨日价格</th>
+                        <th>供应商</th>
+                        <th>操作</th>
+                    </tr>
+                );
+            }else if(this.state.articleType.id == 6) {
+                tHead = (
+                    <tr>
+                        <th>序号</th>
+                        <th>推荐ID</th>
+                        <th>商品ID</th>
+                        <th>品名</th>
+                        <th>昨日销量</th>
+                        <th>价格</th>
+                        <th>供应商</th>
+                        <th>操作</th>
+                    </tr>
+                );
+            }
+        }
         return (
             <div className="section-warp">
                 <div className="section-filter">
@@ -154,39 +325,75 @@ class GoodsInfo extends React.Component {
                                     </div>
                                 </div> : ''
                         }
+                        {
+                            this.state.articleType && this.state.articleType.id == 6 ?
+                                <div className="filter-row">
+                                    <div className="btn-group">
+                                        <btn className='btn btn-sm' onClick={this.cleanRecommended.bind(this)}>清空</btn>
+                                        <btn className='btn btn-lg' onClick={this.addRecommended.bind(this)}>新增推荐</btn>
+                                    </div>
+                                </div> : ''
+                        }
                     </form>
                 </div>
                 <div className="section-table">
                     <table className="table table-bordered table-hover table-responsive">
                         <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>商品ID</th>
-                                <th>品名</th>
-                                <th>昨日销量</th>
-                                <th>价格</th>
-                                <th>供应商</th>
-                                <th>操作</th>
-                            </tr>
+                        {tHead}
                         </thead>
                         <tbody>
                             {
                                 this.state.data.map((data, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{data.id}</td>
-                                            <td>{data.goods_id}</td>
-                                            <td>{data.goods_name}</td>
-                                            <td>{data.yesterday_sales_num}</td>
-                                            <td>{data.yesterday_price}</td>
-                                            <td>{data.sell_shop_name}</td>
-                                            <td>
-                                                {data.shield_status == 1 ?
-                                                    <a onClick={this.shielding.bind(this, data.id, data.goods_id, 2)}>本次屏蔽</a> :
-                                                    <a onClick={this.shielding.bind(this, data.id, data.goods_id, 1)}>取消屏蔽</a>}
-                                            </td>
-                                        </tr>
-                                    );
+                                    if(this.state.articleType && this.state.articleType.id == 4) {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{data.id}</td>
+                                                <td>{data.goods_id}</td>
+                                                <td>{data.goods_name}</td>
+                                                <td>{data.yesterday_sales_num}</td>
+                                                <td>{data.goods_price}/件</td>
+                                                <td>{data.yesterday_price}/件</td>
+                                                <td>{data.sell_shop_name}</td>
+                                                <td>
+                                                    {data.shield_status == 1 ?
+                                                        <a onClick={this.shielding.bind(this, data.id, data.goods_id, 2)}>本次屏蔽</a> :
+                                                        <a onClick={this.shielding.bind(this, data.id, data.goods_id, 1)}>取消屏蔽</a>}
+                                                </td>
+                                            </tr>
+                                        );
+                                    }else if(this.state.articleType && this.state.articleType.id == 6){
+                                        return (
+                                            <tr key={index}>
+                                                <td>{(this.state.defaultParam.page-1) * this.state.defaultParam.size + (index + 1)}</td>
+                                                <td>{data.id}</td>
+                                                <td>{data.goods_id}</td>
+                                                <td>{data.goods_name}</td>
+                                                <td>{data.yesterday_sales_num}</td>
+                                                <td>{data.goods_price}/件</td>
+                                                <td>{data.sell_shop_name}</td>
+                                                <td>
+                                                    <a onClick={this.removeRecommended.bind(this, data.id, data.goods_id)}>移出</a>
+                                                    <a onClick={this.sortingRecommended.bind(this, data.id, data.goods_id)}>排序</a>
+                                                </td>
+                                            </tr>
+                                        );
+                                    }else {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{data.id}</td>
+                                                <td>{data.goods_id}</td>
+                                                <td>{data.goods_name}</td>
+                                                <td>{data.yesterday_sales_num}</td>
+                                                <td>{data.goods_price}/件</td>
+                                                <td>{data.sell_shop_name}</td>
+                                                <td>
+                                                    {data.shield_status == 1 ?
+                                                        <a onClick={this.shielding.bind(this, data.id, data.goods_id, 2)}>本次屏蔽</a> :
+                                                        <a onClick={this.shielding.bind(this, data.id, data.goods_id, 1)}>取消屏蔽</a>}
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
                                 })
                             }
                         </tbody>

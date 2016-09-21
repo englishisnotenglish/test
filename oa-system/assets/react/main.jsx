@@ -21,7 +21,7 @@ class Main extends React.Component {
         server.user_navigate({}, (res)=>{
             if(res.code == 0) {
                 this.setState({res: res.data});
-            }else if(res.code = 10106){
+            }else if(res.code == 10106){
                 H.overdue();
             }else {
                 H.Modal(res.message);

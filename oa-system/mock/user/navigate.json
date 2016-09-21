@@ -59,9 +59,9 @@
             "id": 22
           },
           {
-            "name": "每日推送模仿版本",
-            "privilege_tag": "operate_daily_news_copy",
-            "url": "daily-copyV",
+            "name": "访问日志",
+            "privilege_tag": "access_log",
+            "url": "access-log",
             "id": 29
           }
         ]
