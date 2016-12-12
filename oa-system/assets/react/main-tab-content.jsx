@@ -3,23 +3,17 @@ import React from  'react';
 //首页;
 import Home from  './pages/home/main.jsx';
 
-//系统设置-账户管理;
-import AccountManagement from './pages/account-management/account_ctrl.jsx';
-
-//系统设置-部门管理;
-import DepartmentManagement from './pages/department-management/department_ctrl.jsx';
-
-//商贸系统-商贸公司;
-import TradeCompany from './pages/trade-company/trade_ctrl.jsx';
 
 //运营管理-每日推文;
-import DailyTweets from './pages/daily-tweets/tweets_ctrl.jsx';
+import DailyTweets from './pages/operation-management/daily-tweets/tweets_ctrl.jsx';
 
-//系统设置-每日推文设置;
-import  SetDailyTweets from './pages/set-daily-tweets/set_daily_tweets.jsx';
+
+//商贸系统-商贸公司;
+import TradeCompany from './pages/trade-system/trade-company/trade_ctrl.jsx';
+
 
 //运营管理-访问日志
-import AccessLog from './pages/access-log/access_log.jsx';
+import AccessLog from './pages/operation-management/access-log/access_log.jsx';
 
 //import DepositMain from  './pages/deposit/home.jsx';
 //import WithDrawMain from  './pages/withdraw/home.jsx';

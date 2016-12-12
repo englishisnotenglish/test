@@ -1,7 +1,7 @@
 import React from 'react';
-import Refresh from '../../../components/refresh/refresh.js';
-import PageCtrlBar from '../../../components/page/paging.js';
-import Modal from '../../../components/modal/modal.js';
+import Refresh from '../../../../components/refresh/refresh.js';
+import PageCtrlBar from '../../../../components/page/paging.js';
+import Modal from '../../../../components/modal/modal.js';
 import Privilege from './privilege.jsx';
 
 class AccountManagementCtrl extends React.Component {

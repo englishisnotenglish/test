@@ -11,7 +11,9 @@ var config = {
             src_dir + '/vendors/server.production.js'
         ],
         login: src_dir + '/vendors/login.js',
-        bundle: src_dir + '/react/entry.js'
+        trade_system: src_dir + '/react/entry.js',
+        system_setting: src_dir + '/react/entry.js',
+        operation_management: src_dir + '/react/entry.js'
     },
     output:{
         path: path.resolve(__dirname,'public'),

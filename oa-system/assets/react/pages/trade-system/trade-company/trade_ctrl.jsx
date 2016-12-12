@@ -1,6 +1,6 @@
 import React from 'react';
-import Refresh from '../../../components/refresh/refresh.js';
-import PageCtrlBar from '../../../components/page/paging.js';
+import Refresh from '../../../../components/refresh/refresh.js';
+import PageCtrlBar from '../../../../components/page/paging.js';
 import TransferRules from './transfer_rules.jsx';
 //import Input from '../../../components/input/input.js';
 

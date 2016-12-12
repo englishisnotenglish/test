@@ -1,6 +1,6 @@
 import React from 'react';
-import Table from '../../../components/table/tables.js';
-import Paging from '../../../components/page/paging.js';
+import Table from '../../../../components/table/tables.js';
+import Paging from '../../../../components/page/paging.js';
 
 class GoodsPage extends React.Component{
 
