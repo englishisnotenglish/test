@@ -1,5 +1,3 @@
-import React from 'react';
-import {Router Route, hashHistory} from 'react-router';
 //系统设置-账户管理;
 import AccountManagement from './account-management/account_ctrl.jsx';
 //系统设置-部门管理;

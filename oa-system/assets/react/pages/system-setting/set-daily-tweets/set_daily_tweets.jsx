@@ -1,4 +1,3 @@
-import React from 'react';
 
 class SetDailyTweets extends React.Component{
     constructor(){

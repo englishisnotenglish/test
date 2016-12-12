@@ -1,6 +1,5 @@
 /*
 * 明日推文*/
-import React from 'react';
 import GoodsInfo from './goods_info.jsx';
 
 class TodayArticle extends React.Component {

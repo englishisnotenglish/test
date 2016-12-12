@@ -1,4 +1,3 @@
-import React from 'react';
 import PageCtrlBar from '../../../../components/page/paging.js';
 
 class GoodsInfo extends React.Component {

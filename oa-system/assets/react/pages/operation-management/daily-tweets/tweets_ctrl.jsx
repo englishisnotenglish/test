@@ -1,4 +1,3 @@
-import React from 'react';
 import Refresh from '../../../../components/refresh/refresh.js';
 import ReceiveUserList from './receive_user_list.jsx';
 import DailyNewsLog from './daily_news_log.jsx';

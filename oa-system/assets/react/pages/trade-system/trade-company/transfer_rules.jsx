@@ -1,5 +1,3 @@
-import React from 'react';
-//import Input from '../../../components/input/input.js';
 
 class TransferRules extends React.Component {
     constructor(props) {
