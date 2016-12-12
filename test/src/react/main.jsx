@@ -18,7 +18,6 @@ class Main extends React.Component {
 		this.setState({
 			status:index
 		});
-
 	}
 	//得到我们需要的orderId
 	getOrderId(order){
