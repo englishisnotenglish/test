@@ -13,10 +13,11 @@ class TabContentControl extends React.Component {
 
     //刷新
     componentWillMount(){
+        let main = require('./main.jsx');
         this.state.rootRoute = {
             childRoutes: [ {
                 path: '/',
-                component: require('./pages/home/main.jsx'),
+                component: require('./main.jsx'),
                 childRoutes: [
                     require('./pages/operation-management/router.jsx'),
                     require('./pages/trade-system/router.jsx'),
