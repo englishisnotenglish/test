@@ -9,7 +9,7 @@ class Home extends React.Component {
         return (
             <div>
                 欢迎
-                <p>{this.props.userInfo.name}（{this.props.userInfo.login_name}）</p>
+                <p>fasdkjfklas(asdjfdasfl）</p>
             </div>
         );
     }

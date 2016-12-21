@@ -29,14 +29,3 @@ class SystemSettingRouter extends React.Component {
     }
 }
 export default SystemSettingRouter;
-
-module.exports = {
-    path: '/systemSetting',
-    childRoutes: [
-        require('./routes/Calendar'),
-    ]
-};
-
-
-
-
