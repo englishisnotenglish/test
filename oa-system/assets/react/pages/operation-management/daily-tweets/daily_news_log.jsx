@@ -1,8 +1,5 @@
 /*
 * 推文日志*/
-
-import React from 'react';
-
 class DailyNewsLog extends React.Component {
     constructor(props) {
         super(props);

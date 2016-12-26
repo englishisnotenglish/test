@@ -1,7 +1,5 @@
 /*
 * 可推送用户名单*/
-
-import React from 'react';
 import PageCtrlBar from '../../../../components/page/paging.js';
 
 class ReceiveUserList extends React.Component {

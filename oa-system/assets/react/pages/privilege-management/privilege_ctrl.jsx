@@ -1,4 +1,3 @@
-import React from 'react';
 import Refresh from '../../../components/refresh/refresh.js';
 
 class PrivilegeManagementCtrl extends React.Component {
