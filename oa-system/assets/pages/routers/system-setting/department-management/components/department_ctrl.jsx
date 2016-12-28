@@ -1,5 +1,5 @@
-import Refresh from '../../../../components/refresh/refresh.js';
-import PageCtrlBar from '../../../../components/page/paging.js';
+import Refresh from '../../../../../components/refresh/refresh.js';
+import PageCtrlBar from '../../../../../components/page/paging.js';
 
 class DepartmentManagementCtrl extends React.Component {
     constructor(props) {

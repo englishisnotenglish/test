@@ -1,7 +1,7 @@
 import React from 'react';
-import DatePicker from '../../../../components/datePicker/index.jsx';
-import Paging from '../../../../components/page/paging.js';
-import Table from '../../../../components/table/tables.js';
+import DatePicker from '../../../../../components/datePicker/index.jsx';
+import Paging from '../../../../../components/page/paging.js';
+import Table from '../../../../../components/table/tables.js';
 import GoodsPage from './goods_page.jsx';
 
 class AccessLog extends React.Component{
@@ -320,4 +320,4 @@ class AccessLog extends React.Component{
         );
     }
 }
-export  default AccessLog;
+module.exports = AccessLog;

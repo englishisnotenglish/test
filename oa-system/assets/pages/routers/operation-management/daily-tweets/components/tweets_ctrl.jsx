@@ -1,8 +1,8 @@
-import Refresh from '../../../../components/refresh/refresh.js';
+import Refresh from '../../../../../components/refresh/refresh.js';
 import ReceiveUserList from './receive_user_list.jsx';
 import DailyNewsLog from './daily_news_log.jsx';
 import TodayArticle from './today_article.jsx';
-
+import React from 'react';
 class DepartmentManagementCtrl extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +22,7 @@ class DepartmentManagementCtrl extends React.Component {
         this.refresh = this.refresh.bind(this);
         this.isHavePrivilege = this.isHavePrivilege.bind(this);
         this.createPage = this.createPage.bind(this);
+        console.log('in');
     }
 
     componentDidMount() {
@@ -147,5 +148,4 @@ class DepartmentManagementCtrl extends React.Component {
         );
     }
 }
-
-export default DepartmentManagementCtrl;
+module.exports = DepartmentManagementCtrl;

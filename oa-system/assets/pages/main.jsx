@@ -1,7 +1,7 @@
 import React from 'react';
 import NavController from './Level-two-nav.jsx';
 import LevelOneNav from './Level-one-nav.jsx';
-//import { connect } from 'react-redux';
+//import { connect } from 'routers-redux';
 //import * as action from './reduxs/actions.js';
 //import { VisibilityFilters } from './reduxs/actions.js';
 
@@ -68,6 +68,6 @@ class Main extends React.Component {
 //    };
 //}
 //
-//// 包装 component ，注入 dispatch 和 state 到其默认的 connect(select)(App) 中；
+//// 包装 components ，注入 dispatch 和 state 到其默认的 connect(select)(App) 中；
 //export default connect(select, action)(Main);
 module.exports = Main;

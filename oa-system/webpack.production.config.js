@@ -8,12 +8,12 @@ var config = {
         css: src_dir + '/less/all-style.less',
         vendors:[
             src_dir + '/vendors/zdp_base.js',
-            src_dir + '/vendors/server.production.js'
+            src_dir + '/vendors/server.dev.js'
         ],
-        login: src_dir + '/vendors/login.js',
-        trade_system: src_dir + '/react/pages/trade-system/router.jsx',
-        system_setting: src_dir + '/react/pages/system-setting/router.jsx',
-        operation_management: src_dir + '/react/pages/operation-management/router.jsx'
+        bundle: [
+            'webpack-hot-middleware',
+            src_dir + '/pages/entry.js'
+        ]
     },
     output:{
         path: path.resolve(__dirname,'public'),
@@ -43,7 +43,7 @@ var config = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
-                    presets: ['react', 'es2015', 'stage-1']
+                    presets: ['routers', 'es2015', 'stage-1']
                 }
             }
         ]

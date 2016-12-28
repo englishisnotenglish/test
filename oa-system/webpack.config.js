@@ -7,14 +7,14 @@ var path = require('path'),
 var config = {
     devtool: 'cheap-module-eval-source-map',
     entry: {
-        css:src_dir + '/less/all-style.less',
+        css: src_dir + '/less/all-style.less',
         vendors:[
             src_dir + '/vendors/zdp_base.js',
             src_dir + '/vendors/server.dev.js'
         ],
         bundle: [
             'webpack-hot-middleware',
-            src_dir + '/react/entry.js'
+            src_dir + '/pages/entry.js'
         ]
     },
     output:{
@@ -31,7 +31,7 @@ var config = {
                 // eslint loader
                 test: /\.(js|jsx)$/,
                 loader: 'eslint-loader',
-                include: [path.resolve(__dirname,"assets/react/")],
+                include: [path.resolve(__dirname,"assets/pages/")],
                 exclude: [nodeModulesPath]
             }
         ],
@@ -53,11 +53,12 @@ var config = {
                 loaders:['url?limit=15000']
             },
             {
-                test:/\.(js|jsx)$/,
-                loader: 'babel-loader',
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
-                query: {
-                    presets: ['react', 'es2015', 'stage-1']
+                loader: "babel",
+                query:
+                {
+                    presets:['react', 'es2015']
                 }
             }
         ]
