@@ -6,14 +6,14 @@ module.exports = {
             cb(null, [
                 require('./access-log/index.jsx'),
                 require('./daily-tweets/index.jsx')
-            ])
-        })
+            ]);
+        });
     },
 
     getComponent(nextState, cb) {
         require.ensure([], (require) => {
             console.log('./components/tweets_ctrl.jsx1');
-            cb(null, require('./daily-tweets/components/tweets_ctrl.jsx'))
-        })
+            cb(null, require('./daily-tweets/components/tweets_ctrl.jsx'));
+        });
     }
 };

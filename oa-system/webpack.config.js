@@ -3,38 +3,16 @@ var path = require('path'),
     nodeModulesPath = path.resolve(__dirname, 'node_modules'),
     webpack = require('webpack'),
     ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+var fs = require('fs');
 var config = {
-    devtool: 'cheap-module-eval-source-map',
-    entry: {
-        css: src_dir + '/less/all-style.less',
-        vendors:[
-            src_dir + '/vendors/zdp_base.js',
-            src_dir + '/vendors/server.dev.js'
-        ],
-        bundle: [
-            'webpack-hot-middleware',
-            src_dir + '/pages/entry.js'
-        ]
-    },
-    output:{
-        path: path.resolve(__dirname,'public'),
-        publicPath: '/',
-        filename: 'js/[name].js'
-    },
-    resolve: {
-        root: path.resolve('assets')
+    entry: __dirname + '/assets/pages/entry.js',
+    output: {
+        path: __dirname + '/__build__',
+        filename: '[name].js',
+        chunkFilename: '[id].chunk.js',
+        publicPath: '/Public/__build__/'
     },
     module:{
-        preLoaders: [
-            {
-                // eslint loader
-                test: /\.(js|jsx)$/,
-                loader: 'eslint-loader',
-                include: [path.resolve(__dirname,"assets/pages/")],
-                exclude: [nodeModulesPath]
-            }
-        ],
         loaders:[
             {
                 test:/\.less$/,
@@ -64,26 +42,8 @@ var config = {
         ]
     },
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin('shared.js'),
         new ExtractTextPlugin('/css/base.css', {allChunks: true})
-        //new webpack.DefinePlugin({
-        //    'process.env.NODE_ENV': '"development"'
-        //})
-        //new webpack.optimize.OccurenceOrderPlugin(),
-        //new webpack.HotModuleReplacementPlugin(),
-        //new webpack.NoErrorsPlugin(),
-        //new webpack.optimize.UglifyJsPlugin({
-        //    compress: {
-        //        warnings: false
-        //    },
-        //    output: {
-        //        comments: false
-        //    }
-        //})
-        //new webpack.HotModuleReplacementPlugin()
-        //new webpack.ProvidePlugin({
-        //    $: 'jquery',
-        //    jQuery: 'jquery'
-        //})
     ],
     devServer: {
         proxy: {

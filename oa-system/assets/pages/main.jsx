@@ -70,4 +70,4 @@ class Main extends React.Component {
 //
 //// 包装 components ，注入 dispatch 和 state 到其默认的 connect(select)(App) 中；
 //export default connect(select, action)(Main);
-module.exports = Main;
+//module.exports = Main;
