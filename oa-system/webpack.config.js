@@ -1,35 +1,18 @@
 var path = require('path'),
     src_dir = path.resolve(__dirname,'assets'),
     nodeModulesPath = path.resolve(__dirname, 'node_modules'),
-    webpack = require('webpack'),
-    ExtractTextPlugin = require("extract-text-webpack-plugin");
-var fs = require('fs');
+    webpack = require('webpack');
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 var config = {
-    entry: __dirname + '/assets/pages/entry.js',
+    entry: __dirname + '/assets/pages/main.js',
     output: {
-        path: __dirname + '/__build__',
-        filename: '[name].js',
+        path: __dirname + '/public/js',
+        filename: 'bundle.js',
         chunkFilename: '[id].chunk.js',
-        publicPath: '/Public/__build__/'
+        publicPath: '/Public/js/'
     },
     module:{
         loaders:[
-            {
-                test:/\.less$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css!less')
-            },
-            {
-                test:/\.css$/,
-                loader: ExtractTextPlugin.extract('css')
-            },
-            {
-                test:/\.(jpg|jpeg|png|gif|)$/i,
-                loaders:['url?limit=18000']
-            },
-            {
-                test:/\.(woff|woff2|svg|eot|ttf)$/,
-                loaders:['url?limit=15000']
-            },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
@@ -42,8 +25,11 @@ var config = {
         ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('shared.js'),
-        new ExtractTextPlugin('/css/base.css', {allChunks: true})
+        new CommonsChunkPlugin({
+            name: "common",
+            filename: "common.js",
+            minChunks: 1
+        })
     ],
     devServer: {
         proxy: {
