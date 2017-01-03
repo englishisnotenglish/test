@@ -4,9 +4,9 @@ module.exports = {
     getChildRoutes(partialNextState, cb) {
         require.ensure([], (require) => {
             cb(null, [
-                require('./routes/Announcements/index.jsx'),
-                require('./routes/Assignments/index.jsx'),
-                require('./routes/Grades/index.jsx')
+                require('./routes/Announcements/index.js'),
+                require('./routes/Assignments/index.js'),
+                require('./routes/Grades/index.js')
             ])
         })
     },

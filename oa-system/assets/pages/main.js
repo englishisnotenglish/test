@@ -4,7 +4,7 @@ import {Router, hashHistory} from 'react-router';
 const rootRoute = {
     path: '/',
     component: require('./components/home.jsx'),
-    childRoutes: [require('./routers/operation-management/index.jsx')]
+    childRoutes: [require('./routers/operation-management/index.js')]
 };
 
 class Entry extends React.Component{
@@ -14,7 +14,6 @@ class Entry extends React.Component{
 
 
     render (){
-        console.log('in');
         return <Router history={hashHistory} routes={rootRoute} />;
     }
 

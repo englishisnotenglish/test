@@ -5,13 +5,21 @@ class Home extends React.Component {
         console.log('in');
     }
 
+
+
     render(){
-        return (
-            <div>
-                欢迎
-                <p>fasdkjfklas(asdjfdasfl）</p>
-            </div>
-        );
+        let content = '';
+        if(this.props.children){
+            content = this.props.children;
+        }else{
+            content = (
+                <div>
+                    欢迎
+                    <p>fasdkjfklas(asdjfdasfl）</p>
+                </div>
+            );
+        }
+        return content;
     }
 }
 
