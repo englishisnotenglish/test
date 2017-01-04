@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import {Router, hashHistory} from 'react-router';
+import Main from './main.jsx';
+
 const rootRoute = {
     path: '/',
     component: require('./components/home.jsx'),
@@ -12,10 +14,10 @@ class Entry extends React.Component{
         super();
     }
 
-
     render (){
         return <Router history={hashHistory} routes={rootRoute} />;
     }
-
 }
-render(<Entry />, document.getElementById('main-holder'));
+
+render(<Main />, document.getElementById('main-holder'));
+render(<Entry />, document.getElementById('section-main-container'));

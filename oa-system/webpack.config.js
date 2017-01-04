@@ -7,13 +7,16 @@ module.exports = {
 
     devtool: 'inline-source-map',
 
-    entry: __dirname + '/assets/pages/main.js',
+    entry: {
+        bundle: __dirname + '/assets/pages/main.js',
+        base: [__dirname + '/assets/vendors/zdp_base.js', __dirname + '/assets/vendors/server.dev.js']
+    },
 
     output: {
         path: __dirname + '/public/js',
-        filename: 'bundle.js',
+        filename: '[name].js',
         chunkFilename: '[id].chunk.js',
-        publicPath: '/public/js/'
+        publicPath: '/js/'
     },
 
     module: {

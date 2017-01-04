@@ -39,11 +39,13 @@ class TabController extends React.Component {
                                 })
                             }
                         </ul>
-                        <TabContentControl
-                            userInfo={this.props.userInfo}
-                            tabMenuArr={this.props.tabMenuArr}
-                            userNavigate={this.props.userNavigate}
-                        />
+                        <div id="section-main-container">
+                            <TabContentControl
+                                userInfo={this.props.userInfo}
+                                tabMenuArr={this.props.tabMenuArr}
+                                userNavigate={this.props.userNavigate}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+import React from 'react';
 class TabContentControl extends React.Component {
 
     constructor(props){
