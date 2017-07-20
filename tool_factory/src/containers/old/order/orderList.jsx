@@ -1,3 +1,4 @@
+import React from 'react';
 import OrderItem from './orderItem.jsx';
 import Loading from './loading.jsx';
 

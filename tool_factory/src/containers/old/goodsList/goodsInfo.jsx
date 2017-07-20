@@ -1,4 +1,4 @@
-
+import React from 'react';
 /*
 * 商品信息
 * goods: {} //商品信息

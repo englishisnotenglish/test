@@ -1,3 +1,4 @@
+import React from 'react';
 import Tab from './order/tab.jsx';
 import Order from './order/orderCtrl.jsx';
 import  ActionSheet from './order/actionSheet.jsx';
@@ -37,3 +38,4 @@ class Main extends React.Component {
 	}
 }
 export default Main;
+

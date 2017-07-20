@@ -1,3 +1,4 @@
+import React from 'react';
 class Default extends React.Component{
     constructor(){
         super();

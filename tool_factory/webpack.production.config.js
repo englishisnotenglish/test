@@ -5,12 +5,6 @@ var path = require('path'),
 
 var config = {
     entry: {
-        //vendors: [
-        //    //'jquery',
-        //    //'iscroll',
-        //    'react',
-        //    'react-dom'
-        //],
         bundle: [
             src_dir + '/less/style.less',
             src_dir + '/vendors/base.js',
@@ -21,14 +15,6 @@ var config = {
     output: {
         path: path.resolve(__dirname, 'build/Public/buyer-cli/mall'),
         filename: '[name].js'
-    },
-    resolve: {
-        alias: {
-            //jquery: 'jquery',
-            //iscroll: src_dir + '/vendors/iscroll-probe.js',
-            //'react': src_dir + '/vendors/react.min.js',
-            //'react-dom': src_dir + '/vendors/react-dom.min.js'
-        }
     },
     module: {
         //noParse: [src_dir + '/react/react.min.js', src_dir + '/vendors/react-dom.min.js'],
@@ -69,12 +55,7 @@ var config = {
             'process.env': {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV)
             }
-        })/*,
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            IScroll: 'iscroll'
-        })*/
+        })
     ]
 };
 

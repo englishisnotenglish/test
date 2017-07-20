@@ -1,6 +1,7 @@
 /*
 * 这个组件关键是要获得orderId，orderId进行支付后续的创建
 * */
+import React from 'react';
 class ActionSheet extends React.Component{
     constructor(){
         super();
@@ -25,7 +26,7 @@ class ActionSheet extends React.Component{
                 let _this  =  this;
                 _this.setState({showState: 3}, function() {
                     //H.we_loading.show();
-                    pingpp.createPayment(charge,  function(result,  error){
+                    pingpp.createPayment(charge,  function(result){
                         //H.we_loading.hide();
                         if (result  ==  'success') {
                             _this.setState({wePay: true});
@@ -135,7 +136,7 @@ class ActionSheet extends React.Component{
                         </a>
                     </div>
                 </div>
-            )
+            );
         }else if(this.state.showState  ==  1) { //选择了网银转账付款方式;
             xml  =  (
                 <div className = 'actionsheet_menu'>
@@ -193,7 +194,7 @@ class ActionSheet extends React.Component{
                         </div>
                     </div>
                 </div>
-            )
+            );
         }else if(this.state.showState  ==  4) {  //微信支付成功;
             xml  =  (
                 <div className = 'actionsheet_menu'>
