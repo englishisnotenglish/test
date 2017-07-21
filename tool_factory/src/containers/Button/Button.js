@@ -4,15 +4,14 @@ class Button extends Component{
     constructor(){
         super();
         this.config = {
-            angle: Math.PI /6,
-            Ox: 200,
+            angle: Math.PI / 6,
+            Ox: 600,
             Oy: 200,
-            Ro: 50,
-            Ri: 30
+            Ro: 150,
+            Ri: 75
         } ;
     }
 
-    //update
     //update
     createButtons(){
         const {angle, Ox, Oy, Ro, Ri} = this.config,
@@ -30,18 +29,18 @@ class Button extends Component{
             curAngle += angle;
             newLeft = {
                 x: Ox + Math.cos(curAngle) * Ri,
-                y: Oy + Math.sin(curAngle) * Ri
+                y: Oy - Math.sin(curAngle) * Ri
             };
             newRight = {
                 x: Ox + Math.cos(curAngle) * Ro,
-                y: Oy + Math.sin(curAngle) * Ro
+                y: Oy - Math.sin(curAngle) * Ro
             };
-            path = `M ${lastLeft.x} ${lastLeft.y} L ${lastRight.x} ${lastRight.y} C ${newRight.x} ${newRight.y} L ${newLeft.x} ${newLeft.y} C ${lastLeft.x} ${lastLeft.y} Z`;
-            console.log(path);
-            arr.push(<path key={Math.random} d={path} style={{fill:'white', stroke: 'red', strokeWidth: 2}} />);
+
+            path = `M ${lastLeft.x} ${lastLeft.y} L ${lastRight.x} ${lastRight.y} L ${newRight.x} ${newRight.y} L ${newLeft.x} ${newLeft.y} L ${lastLeft.x} ${lastLeft.y} Z`;
+            arr.push(<path data-id={curAngle} onClick={(e)=>{console.log(e.target, e.target.getAttribute('data-id'));}} d={path} style={{fill: 'black', stroke: '#345', strokeWidth: 1.5}} />);
             lastLeft = newLeft;
             lastRight = newRight;
-        }while(curAngle >= Math.PI);
+        }while(curAngle + angle <= Math.PI );
         return arr;
     }
 
