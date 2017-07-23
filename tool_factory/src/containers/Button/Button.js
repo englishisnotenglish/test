@@ -24,7 +24,7 @@ class Button extends Component{
             y: Oy
         },
         curAngle = 0,
-        newLeft, newRight, path;
+        newLeft, newRight, path, iArc, oArc;
         do{
             curAngle += angle;
             newLeft = {
@@ -35,9 +35,10 @@ class Button extends Component{
                 x: Ox + Math.cos(curAngle) * Ro,
                 y: Oy - Math.sin(curAngle) * Ro
             };
-
-            path = `M ${lastLeft.x} ${lastLeft.y} L ${lastRight.x} ${lastRight.y} L ${newRight.x} ${newRight.y} L ${newLeft.x} ${newLeft.y} L ${lastLeft.x} ${lastLeft.y} Z`;
-            arr.push(<path data-id={curAngle} onClick={(e)=>{console.log(e.target, e.target.getAttribute('data-id'));}} d={path} style={{fill: 'black', stroke: '#345', strokeWidth: 1.5}} />);
+            oArc = `A ${Ro} ${Ro} 0 0 0 ${newRight.x} ${newRight.y}`;
+            iArc = `A ${Ri} ${Ri} 0 0 1 ${lastLeft.x} ${lastLeft.y}`;
+            path = `M ${lastLeft.x} ${lastLeft.y} L ${lastRight.x} ${lastRight.y} ${oArc} L ${newLeft.x} ${newLeft.y} ${iArc}  Z`;
+            arr.push(<path data-id={curAngle} onClick={(e)=>{console.log(e.target, e.target.dataset, e.target.getAttribute('data-id'));}} d={path} style={{fill: 'black', stroke: '#345', strokeWidth: 1.5}} />);
             lastLeft = newLeft;
             lastRight = newRight;
         }while(curAngle + angle <= Math.PI );
