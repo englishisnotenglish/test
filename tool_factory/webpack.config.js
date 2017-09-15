@@ -6,7 +6,6 @@ var path = require('path'),
 var config = {
     entry: {
         bundle: [
-            'webpack/hot/dev-server',
             src_dir + '/less/style.less',
             src_dir + '/vendors/base.js',
             src_dir + '/vendors/request.js',
@@ -19,33 +18,33 @@ var config = {
         filename: '[name].js'
     },
     module:{
-        preLoaders: [
-            {
-                // eslint loader;
-                test: /\.(js|jsx)$/,
-                loader: 'eslint-loader',
-                include: [path.resolve(__dirname,"containers")],
-                exclude: [nodeModulesPath, path.resolve(__dirname,"src/vendors")]
-            }
-        ],
+        //preLoaders: [
+        //    {
+        //        // eslint loader;
+        //        test: /\.(js|jsx)$/,
+        //        loader: 'eslint-loader',
+        //        include: [path.resolve(__dirname,"containers")],
+        //        exclude: [nodeModulesPath, path.resolve(__dirname,"src/vendors")]
+        //    }
+        //],
         //noParse: [ src_dir + '/react/react.min.js', src_dir + '/vendors/react-dom.min.js'],
-        loaders:[
+        rules:[
             {
                 test: /\.less$/,
                 loader: "style-loader!css-loader!less-loader"
             },
             {
                 test:/\.(jpg|jpeg|png|gif|)$/i,
-                loaders:['url?limit=18000']
+                loaders:['url-loader?limit=18000']
             },
             {
                 test:/\.(woff|svg|eot|ttf)$/,
-                loaders:['url?limit=15000']
+                loaders:['url-loader?limit=15000']
             },
             {
                 test:/\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loaders:['babel']
+                loaders:['babel-loader']
             }
         ]
     }
