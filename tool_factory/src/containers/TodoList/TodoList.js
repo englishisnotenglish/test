@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import TaskList from './TaskList';
 
 class TodoList extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class TodoList extends Component {
     }
   }
 
-  //taskStatus: 0 created, 1 finished, 2: unfinished
+  //taskStatus: 1 finished, 2: unfinished
   createTask(name, describe, level, id) {
     let indexId = 0;
     if(id === undefined || this.ids[id])
@@ -30,7 +31,7 @@ class TodoList extends Component {
       name,
       describe,
       level,
-      status: 0
+      status: 1
     }
   }
 
@@ -61,17 +62,36 @@ class TodoList extends Component {
     });
   }
 
-  //list: arr, type: string
-  createList(list, type) {
-    const obj = {};
+  //创建LIst
+  createList() {
+    const obj = {
+      1: [],
+      2: []
+    },
+      tasks = [];
+    this.taskList.forEach(task => {
+      const taskStatus = task.status;
+      if(!obj[taskStatus]) obj[taskStatus] = [];
+      obj[taskStatus].push(task);
+    });
 
+    for(let taskStatus in obj) {
+      tasks.push(
+        <TaskList key={taskStatus} addTask={this.addTask} deleteTask={this.deleteTask}
+                  taskStatus={taskStatus} tasks={obj[taskStatus]}
+        />
+      );
+    }
+
+    return tasks;
   }
 
   render() {
-    return <div>
-
-
+    return (
+      <div>
+        {this.createList()}
       </div>
+      )
   }
 }
 export default TodoList;
