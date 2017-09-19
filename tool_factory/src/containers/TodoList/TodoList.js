@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import TaskList from './TaskList';
+import './todoList.less';
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
     this.initState();
+
+    this.createTask = this.createTask.bind(this);
+    this.addTask = this.addTask.bind(this);
   }
 
   initState() {
@@ -22,8 +26,8 @@ class TodoList extends Component {
   //taskStatus: 1 finished, 2: unfinished
   createTask(name, describe, level, id) {
     let indexId = 0;
-    if(id === undefined || this.ids[id])
-      while(this.ids[indexId++]) break;
+    if(id === undefined)
+      while(this.ids[indexId + '']) indexId++;
 
     this.ids[indexId] = true;
     return {
