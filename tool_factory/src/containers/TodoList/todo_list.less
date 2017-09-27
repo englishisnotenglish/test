@@ -1,0 +1,73 @@
+@import '../../less/variable.less';
+.tl-task-card {
+  position: relative;
+  display: inline-block;
+  min-width: 400px;
+  min-height: 200px;
+  border: 1px solid;
+  background: white;
+}
+
+.tl-task-list {
+  padding: 0 5px;
+
+}
+
+.tl-task {
+  .tl-task-level {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
+    line-height: 2em;
+    text-align: center;
+  }
+
+  .tl-task-content {
+    display: inline-block;
+    padding: 0 0.2em;
+    line-height: 2em;
+    background: @base-color-blue;
+
+    .tl-task-name {
+
+    }
+
+    .tl-task-des {
+
+    }
+  }
+
+  .tl-task-del {
+    width: 5em;
+    height: 2em;
+    line-height: 2em;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.tl-task-level-1 {
+  background: @color-level-1;
+}
+
+.tl-task-level-2 {
+  background: @color-level-2;
+}
+
+.tl-task-level-3 {
+  background: @color-level-3;
+}
+
+.tl-task-level-4 {
+  background:@color-level-4;
+}
+
+.tl-task-level-5 {
+  background:@color-level-5;
+}
+
+.tl-shadow {
+  position: absolute;
+  border: 1px solid black;
+}

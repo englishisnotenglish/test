@@ -8,12 +8,67 @@ class TaskList extends Component {
     this.createTaskForm = this.createTaskForm.bind(this);
   }
 
+  onMouseDown() {
+    this.state.isMouseDown = true;
+  }
+
+  onMouseMove(e) {
+    if(this.state.isMouseDown) {
+      this.setState({
+        moving: true
+      }, () => {
+        this.state.moving = false
+      });
+      console.log(e);
+    }
+  }
+
+  createMovingShadow() {
+    return (
+      <div className="tl-shadow" style={{top: '1px', left: '2px'}}>
+        you have dragged a task!
+      </div>
+    )
+  }
+
+
+  onMouseUp() {
+
+  }
+
+  componentDidMount() {
+    const events = {
+      mousedown: this.onMouseDown.bind(this),
+      mouseenter: this.onMouseEnter.bind(this),
+      mouseup: this.onMouseUp.bind(this),
+      mousemove: this.onMouseMove.bind(this)
+    };
+    for(let eventName in events) {
+      if(eventName === 'mousemove') {
+        document.addEventListener(eventName, events[eventName], false);
+        continue;
+      }
+      this.taskLIst.addEventListener(eventName, events[eventName], false);
+    }
+  }
+
   initState(props) {
     this.listType = props.taskStatus;
     this.config = {
       canAdd: false,
       canDelete: false
     };
+    this.generateConfig();
+    this.state = {
+      formVisible: false,
+      isMouseDown: false,
+      entered: false,
+      moving: false
+    };
+    this.initTaskData();
+  }
+
+  generateConfig() {
     const config = this.config;
     switch (this.listType) {
       case '1'://unfinished
@@ -23,14 +78,13 @@ class TaskList extends Component {
       case '2'://finished
         break;
     }
+  }
 
-    this.state = {
-      formVisible: false,
-      taskData: {
-        taskName: '',
-        taskDes: '',
-        taskLevel: ''
-      }
+  initTaskData() {
+    this.state.taskData = {
+      taskName: '',
+      taskDes: '',
+      taskLevel: '1'
     }
   }
 
@@ -53,7 +107,7 @@ class TaskList extends Component {
         <div>
           <span>任务等级</span>
           <select name="taskLevel">
-            <option value="1">一般</option>
+            <option value="1" >一般</option>
             <option value="2">中等</option>
             <option value="3">重要</option>
             <option value="4">非常重要</option>
@@ -68,33 +122,43 @@ class TaskList extends Component {
   //更新值
   updateFromPostData(e) {
     const target = e.target;
-    this.state['taskData'][target.name] = target.value
+    this.state['taskData'][target.name] = target.value;
   }
 
   submitTask() {
     const {addTask} = this.props,
       {taskName, taskDes, taskLevel} = this.state.taskData;
     this.state.formVisible = false;
+    this.initTaskData();
     addTask(taskName, taskDes, taskLevel);
   }
 
-
   createTaskLIst() {
-    const {tasks, deleteTask} = this.props,
+    const {tasks} = this.props,
       {canDelete} = this.config;
-    return <ul className="tl-task-list">
+    return <ul className="tl-task-list"  ref={(element) => {this.taskLIst = element}}>
       {tasks.map((task, index) => {
         const {id, level, name, describe} =  task;
         return (
-          <li key={id} className={'tl-task tl-task-level-' + level} data-index={index}>
-            <span className="tl-task-level">{level}</span>
-            <a className="tl-task-name" href='javascript:;'>{name}</a>
-            <span className="tl-task-des">{describe}</span>
-            {canDelete ? <span className="tl-task-del" onClick={deleteTask}>删除</span> : null}
+          <li key={id} className={"tl-task"}>
+            <span className={"tl-task-level tl-task-level-" + level}>{level}</span>
+            <label className="tl-task-content">
+              <span className="tl-task-name" href='javascript:;'>{name}:&nbsp;</span>
+              <span className="tl-task-des">{describe}</span>
+            </label>
+            {canDelete ? <a className="tl-task-del" onClick={this.delTask.bind(this)} data-index={index}>删除</a> : null}
           </li>
         )
       })}
     </ul>
+  }
+
+  delTask(e) {
+    const {deleteTask, tasks} = this.props,
+      target = e.target,
+      index = target.dataset.index,
+      task = tasks[index];
+    deleteTask(task.id);
   }
 
   render() {
@@ -103,6 +167,7 @@ class TaskList extends Component {
         {this.createHeader()}
         {this.state.formVisible ? this.createTaskForm() : null}
         {this.createTaskLIst()}
+        {this.state.moving ? this.createMovingShadow() : null}
       </div>
     )
   }

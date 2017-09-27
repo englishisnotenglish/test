@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import TaskList from './TaskList';
-import './todoList.less';
+import './todo_list.less';
 
 class TodoList extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class TodoList extends Component {
 
     this.createTask = this.createTask.bind(this);
     this.addTask = this.addTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   initState() {
@@ -48,7 +49,8 @@ class TodoList extends Component {
   }
 
   deleteTask(id) {
-    this.deleteTask(id);
+    this.taskList.delete(id);
+    delete this.ids[id];
     this.setState({
       success: true
     });
