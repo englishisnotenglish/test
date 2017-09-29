@@ -12,15 +12,96 @@ class TodoList extends Component {
     this.deleteTask = this.deleteTask.bind(this);
   }
 
+  componentDidMount() {
+    this.bindContainerEvent();
+  }
+
+  bindEvent(target, event, fn, capture = false) {
+    target.addEventListener(event, fn, capture);
+  }
+
+  bindContainerEvent() {
+    const events = {
+      mousedown: this.onMouseDown.bind(this),
+      mouseenter: this.onMouseEnter.bind(this),
+      mouseup: this.onMouseUp.bind(this),
+      mousemove: this.onMouseMove.bind(this)
+    };
+    this.containers.forEach((target) => {
+      console.log(target);
+      for(let eventName in events) {
+        if(eventName === 'mousemove' || eventName === 'mouseup') {
+          this.bindEvent(document, eventName, events[eventName]);
+          continue;
+        }
+        this.bindEvent(target, eventName, events[eventName]);
+      }
+    });
+  }
+
+  onMouseDown() {
+    this.state.isMouseDown = true;
+  }
+
+  onMouseMove(e) {
+    //console.log(e);
+    if(this.state.isMouseDown) {
+      this.position = {
+        x: e.x,
+        y: e.y
+      };
+
+      this.setState({
+        moving: true
+      }, () => {
+        this.state.moving = false
+      });
+    }
+  }
+
+  onMouseEnter() {
+    if(this.state.isMouseDown)
+      this.state.entered = true;
+  }
+
+  onMouseUp() {
+    if(this.state.entered)
+      console.log('you have drag a obj to another container');
+    this.initDragState();
+  }
+
+  createMovingShadow() {
+    const {x, y} = this.position;
+    return (
+      <div className="tl-shadow" style={{top: y, left: x}}>
+        you have dragged a task!
+      </div>
+    )
+  }
+
   initState() {
     this.taskList = new Map();
     this.ids = {}; //记录task生成的数量
+    this.containers = new Set();
+    this.position = {
+      x: 0,
+      y: 0
+    };
 
     this.state = {
       finishedPercentage: 0,
       succeed: false,
       failed: false,
       loading: true
+    };
+    this.initDragState();
+  }
+
+  initDragState() {
+    this.state = {
+      isMouseDown: false,
+      entered: false,
+      moving: false
     }
   }
 
@@ -84,7 +165,7 @@ class TodoList extends Component {
     for(let taskStatus in obj) {
       tasks.push(
         <TaskList key={taskStatus} addTask={this.addTask} deleteTask={this.deleteTask}
-                  taskStatus={taskStatus} tasks={obj[taskStatus]}
+                  taskStatus={taskStatus} tasks={obj[taskStatus]} ref={(element) => {element ? this.containers.add(element.taskList) : null}}
         />
       );
     }
@@ -96,6 +177,7 @@ class TodoList extends Component {
     return (
       <div>
         {this.createList()}
+        {this.state.moving ? this.createMovingShadow() : null}
       </div>
       )
   }

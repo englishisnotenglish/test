@@ -8,48 +8,10 @@ class TaskList extends Component {
     this.createTaskForm = this.createTaskForm.bind(this);
   }
 
-  onMouseDown() {
-    this.state.isMouseDown = true;
-  }
 
-  onMouseMove(e) {
-    if(this.state.isMouseDown) {
-      this.setState({
-        moving: true
-      }, () => {
-        this.state.moving = false
-      });
-      console.log(e);
-    }
-  }
-
-  createMovingShadow() {
-    return (
-      <div className="tl-shadow" style={{top: '1px', left: '2px'}}>
-        you have dragged a task!
-      </div>
-    )
-  }
-
-
-  onMouseUp() {
-
-  }
 
   componentDidMount() {
-    const events = {
-      mousedown: this.onMouseDown.bind(this),
-      mouseenter: this.onMouseEnter.bind(this),
-      mouseup: this.onMouseUp.bind(this),
-      mousemove: this.onMouseMove.bind(this)
-    };
-    for(let eventName in events) {
-      if(eventName === 'mousemove') {
-        document.addEventListener(eventName, events[eventName], false);
-        continue;
-      }
-      this.taskLIst.addEventListener(eventName, events[eventName], false);
-    }
+
   }
 
   initState(props) {
@@ -136,7 +98,7 @@ class TaskList extends Component {
   createTaskLIst() {
     const {tasks} = this.props,
       {canDelete} = this.config;
-    return <ul className="tl-task-list"  ref={(element) => {this.taskLIst = element}}>
+    return <ul className="tl-task-list">
       {tasks.map((task, index) => {
         const {id, level, name, describe} =  task;
         return (
@@ -163,11 +125,10 @@ class TaskList extends Component {
 
   render() {
     return (
-      <div className="tl-task-card">
+      <div className="tl-task-card" ref={(element) => {this.taskList = element}}>
         {this.createHeader()}
         {this.state.formVisible ? this.createTaskForm() : null}
         {this.createTaskLIst()}
-        {this.state.moving ? this.createMovingShadow() : null}
       </div>
     )
   }
